@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "mongoose": "^5.10.10",
     "next": "^9.5.5",
     "react": "^17.0.1",
@@ -19,6 +20,7 @@
     "ts-mongoose": "^0.0.21"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/mongoose": "^5.7.36",
     "typescript": "^4.0.3"
   }
