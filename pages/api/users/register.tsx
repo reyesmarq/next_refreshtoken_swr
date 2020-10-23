@@ -1,7 +1,7 @@
 import { hash } from 'bcryptjs';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-import { User } from '../../models/User';
-import { dbConnect } from '../../utils/dbConnection';
+import { User } from '../../../models/User';
+import { dbConnect } from '../../../utils/dbConnection';
 
 interface NextApiRequestWithRegister extends NextApiRequest {
   body: {
@@ -13,11 +13,12 @@ interface NextApiRequestWithRegister extends NextApiRequest {
 const register: NextApiHandler = async (
   req: NextApiRequestWithRegister,
   res: NextApiResponse
+  // TODO: refactor the return type and standarize a response.
 ) => {
   if (req.method !== 'POST') {
     res.setHeader('Allow', ['POST']);
     res.status(405).json({
-      message: `Method ${req.method} Not allowed`,
+      msg: `Method ${req.method} Not allowed`,
     });
   } else {
     try {

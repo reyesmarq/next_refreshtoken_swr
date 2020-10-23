@@ -1,10 +1,10 @@
 ###
 # create a user 
-POST http://localhost:3000/api/register
+POST http://localhost:3000/api/users/register
 Content-Type: application/json
 
 {
-  "email": "mauricio@horchatajs.com",
+  "email": "reyes.marq@gmail.coms",
   "password": "reyes859"
 }
 
