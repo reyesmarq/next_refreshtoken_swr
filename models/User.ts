@@ -1,5 +1,5 @@
 // https://hackernoon.com/how-to-link-mongoose-and-typescript-for-a-single-source-of-truth-94o3uqc?source=rss
-import { Document, model, Schema } from 'mongoose';
+import { Document, model, models, Schema } from 'mongoose';
 
 interface IUser {
   email: string;
@@ -13,7 +13,7 @@ let userSchema = new Schema<IUser>({
   password: { type: String, required: true },
 });
 
-let User = model<UserModel>('User', userSchema);
+let User = models.User || model<UserModel>('User', userSchema);
 
 export { User };
 
