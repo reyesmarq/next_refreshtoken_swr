@@ -1,5 +1,10 @@
-import { createSchema, Type, typedModel } from 'ts-mongoose';
 import { models } from 'mongoose';
+import { createSchema, Type, typedModel } from 'ts-mongoose';
+
+export interface IUser {
+  email: string;
+  password: string;
+}
 
 let userschema = createSchema(
   {
@@ -12,3 +17,4 @@ let userschema = createSchema(
 let User = models.User || typedModel('User', userschema);
 
 export { User };
+
