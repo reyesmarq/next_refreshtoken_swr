@@ -1,6 +1,6 @@
 import { hash } from 'bcryptjs';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-import { User } from '../../../models/User';
+import { User, UserModel } from '../../../models/User';
 import { dbConnect } from '../../../utils/dbConnection';
 
 interface NextApiRequestWithRegister extends NextApiRequest {
@@ -26,7 +26,7 @@ const register: NextApiHandler = async (
       let { email, password } = req.body;
 
       // validate if there is an existing user with that email
-      let existingUser = await User.findOne({ email });
+      let existingUser: User = await UserModel.findOne({ email });
 
       if (existingUser) {
         return res.status(403).json({
@@ -36,7 +36,10 @@ const register: NextApiHandler = async (
       }
 
       let hashPassword = await hash(password, 10);
-      let user = await new User({ email, password: hashPassword }).save();
+      let user: User = await new UserModel({
+        email,
+        password: hashPassword,
+      }).save();
 
       return res.status(201).json({ success: true, data: user });
     } catch (error) {

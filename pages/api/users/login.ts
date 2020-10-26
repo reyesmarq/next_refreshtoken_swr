@@ -1,6 +1,6 @@
 import { compare } from 'bcryptjs';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-import { User } from '../../../models/User';
+import { User, UserModel } from '../../../models/User';
 import { dbConnect } from '../../../utils/dbConnection';
 
 interface NextApiRequestWithRegister extends NextApiRequest {
@@ -26,7 +26,7 @@ const login: NextApiHandler = async (
       let { email, password } = req.body;
 
       // validate if there is an existing user with that email
-      let user = await User.findOne({ email });
+      let user: User = await UserModel.findOne({ email });
 
       if (!user) {
         return res.status(403).json({
@@ -46,7 +46,9 @@ const login: NextApiHandler = async (
 
       // Login successfully
 
-      return res.status(201).json({ success: true, data: 'login successfully' });
+      return res
+        .status(201)
+        .json({ success: true, data: 'login successfully' });
     } catch (error) {
       return res.status(500).json({
         sucess: false,
