@@ -1,9 +1,12 @@
 import { compare } from 'bcryptjs';
-import cookie from 'cookie';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { User, UserModel } from '../../../models/User';
 import { dbConnect } from '../../../utils/dbConnection';
-import { createAccessToken, createRefreshToken } from '../../../utils/token';
+import {
+  createAccessToken,
+  createRefreshToken,
+  sendRefreshToken
+} from '../../../utils/token';
 import { withMiddlewares } from '../../../utils/withMiddleware';
 
 interface NextApiRequestWithRegister extends NextApiRequest {
@@ -48,12 +51,8 @@ const login: NextApiHandler = async (
       }
 
       // Setting the cookie
-      res.setHeader(
-        'Cookie',
-        cookie.serialize('jid', createRefreshToken(user), {
-          httpOnly: true,
-        })
-      );
+      sendRefreshToken(res, createRefreshToken(user));
+
       // Login successfully
       return res
         .status(201)

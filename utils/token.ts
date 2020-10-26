@@ -1,4 +1,6 @@
+import Cookie from 'cookie';
 import { sign } from 'jsonwebtoken';
+import { NextApiResponse } from 'next';
 import { User } from '../models/User';
 
 const createAccessToken = (user: User) => {
@@ -19,5 +21,14 @@ const createRefreshToken = (user: User) => {
   });
 };
 
-export { createAccessToken, createRefreshToken };
+const sendRefreshToken = (res: NextApiResponse, token: string) => {
+  res.setHeader(
+    'Cookie',
+    Cookie.serialize('jid', token, {
+      httpOnly: true,
+    })
+  );
+};
+
+export { createAccessToken, createRefreshToken, sendRefreshToken };
 

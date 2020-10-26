@@ -2,7 +2,11 @@ import Cookie from 'cookie';
 import { verify } from 'jsonwebtoken';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { UserModel } from '../../models/User';
-import { createAccessToken } from '../../utils/token';
+import {
+  createAccessToken,
+  createRefreshToken,
+  sendRefreshToken
+} from '../../utils/token';
 
 const refreshToken: NextApiHandler = async (
   req: NextApiRequest,
@@ -43,6 +47,9 @@ const refreshToken: NextApiHandler = async (
         accessToken: '',
       });
     }
+
+    // if the refresh is ok, refresh the refresh token
+    sendRefreshToken(res, createRefreshToken(user));
 
     res.status(200).json({
       ok: true,
