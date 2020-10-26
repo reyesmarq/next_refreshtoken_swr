@@ -1,9 +1,9 @@
 import { compare } from 'bcryptjs';
 import cookie from 'cookie';
-import { sign } from 'jsonwebtoken';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { User, UserModel } from '../../../models/User';
 import { dbConnect } from '../../../utils/dbConnection';
+import { createAccessToken, createRefreshToken } from '../../../utils/token';
 
 interface NextApiRequestWithRegister extends NextApiRequest {
   body: {
@@ -49,20 +49,14 @@ const login: NextApiHandler = async (
       // Setting the cookie
       res.setHeader(
         'Cookie',
-        cookie.serialize(
-          'testing',
-          // @ts-ignore
-          sign({ userId: user.id }, 'anothersecret', { expiresIn: '7d' }),
-          {
-            httpOnly: true,
-          }
-        )
+        cookie.serialize('testing', createRefreshToken(user), {
+          httpOnly: true,
+        })
       );
       // Login successfully
-      // @ts-ignore
-      let token = sign({ userId: user.id }, 'secret', { expiresIn: '15m' });
-
-      return res.status(201).json({ success: true, data: token });
+      return res
+        .status(201)
+        .json({ success: true, data: createAccessToken(user) });
     } catch (error) {
       return res.status(500).json({
         sucess: false,
