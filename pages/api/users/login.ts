@@ -1,4 +1,5 @@
 import { compare } from 'bcryptjs';
+import { sign } from 'jsonwebtoken';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { User, UserModel } from '../../../models/User';
 import { dbConnect } from '../../../utils/dbConnection';
@@ -35,7 +36,7 @@ const login: NextApiHandler = async (
         });
       }
 
-      let validPassword = compare(password, user.password);
+      let validPassword = await compare(password, user.password);
 
       if (!validPassword) {
         return res.status(403).json({
@@ -45,10 +46,10 @@ const login: NextApiHandler = async (
       }
 
       // Login successfully
+      // @ts-ignore
+      let token = sign({ userId: user.id }, 'secret', { expiresIn: '15m' });
 
-      return res
-        .status(201)
-        .json({ success: true, data: 'login successfully' });
+      return res.status(201).json({ success: true, data: token });
     } catch (error) {
       return res.status(500).json({
         sucess: false,
