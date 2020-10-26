@@ -22,4 +22,4 @@ Content-Type: application/json
 # auth
 GET http://localhost:3000/api/users
 Content-Type: application/json
-Authorization: ''
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Zjk3MWRhYWM3OTI0ZjU5MjBiYWJmZjQiLCJpYXQiOjE2MDM3NTI1MTAsImV4cCI6MTYwMzc1MzQxMH0.0jWIfWCSx-PgxNquElZZHg96CSsZTVvjw33dIFbAO34

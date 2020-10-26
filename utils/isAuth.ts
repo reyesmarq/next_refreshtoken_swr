@@ -13,21 +13,25 @@ const isAuth = (next) => (
 ) => {
   let authorization = req.headers.authorization;
 
+  console.log(authorization);
+
   console.log('getting here 1');
   if (!authorization) {
-    return res.status(403).json({ msg: 'not authorize' })
+    return res.status(403).json({ msg: 'not authorize' });
   }
-  
-  console.log('getting here 2');
 
   try {
     let token = authorization.split(' ')[1];
-    let payload = verify(token, process.env.REFRESH_TOKEN_SECRET);
+    console.log(token);
+    let payload = verify(token, process.env.ACCESS_TOKEN_SECRET);
+    console.log(payload);
     req.payload = <{ userId: string }>payload;
   } catch (e) {
     console.log('Error', e);
     throw new Error('Not authenticated');
   }
+
+  return next(req, res);
 };
 
 export { isAuth };
