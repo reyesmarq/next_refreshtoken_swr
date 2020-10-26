@@ -19,7 +19,13 @@ Content-Type: application/json
 }
 
 ###
-# auth
+# get Users with auth
 GET http://localhost:3000/api/users
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Zjk3MWRhYWM3OTI0ZjU5MjBiYWJmZjQiLCJpYXQiOjE2MDM3NTI1MTAsImV4cCI6MTYwMzc1MzQxMH0.0jWIfWCSx-PgxNquElZZHg96CSsZTVvjw33dIFbAO34
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Zjk3MWRhYWM3OTI0ZjU5MjBiYWJmZjQiLCJpYXQiOjE2MDM3NTM4NzAsImV4cCI6MTYwMzc1NDc3MH0.VOY2reVwPthAtkRu6DNfnWA6Blv2_2QDLjUMQO3lnM4
+
+###
+# refresh token
+POST http://localhost:3000/api/refreshToken
+Content-Type: application/json
+Cookie: jid=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Zjk3MWRhYWM3OTI0ZjU5MjBiYWJmZjQiLCJpYXQiOjE2MDM3NTQxMDgsImV4cCI6MTYwNDM1ODkwOH0.OVUgpJtBAUg_PxcrHLwZcWngNEfVpJ-0UOSMQP9F9PQ;

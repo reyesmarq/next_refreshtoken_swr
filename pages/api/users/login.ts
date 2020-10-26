@@ -50,7 +50,7 @@ const login: NextApiHandler = async (
       // Setting the cookie
       res.setHeader(
         'Cookie',
-        cookie.serialize('testing', createRefreshToken(user), {
+        cookie.serialize('jid', createRefreshToken(user), {
           httpOnly: true,
         })
       );
