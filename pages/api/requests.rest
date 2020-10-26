@@ -17,3 +17,9 @@ Content-Type: application/json
   "email": "reyes.marq@gmail.com",
   "password": "reyes859"
 }
+
+###
+# auth
+GET http://localhost:3000/api/users
+Content-Type: application/json
+Authorization: ''

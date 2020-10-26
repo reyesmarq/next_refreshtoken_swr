@@ -4,6 +4,7 @@ import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { User, UserModel } from '../../../models/User';
 import { dbConnect } from '../../../utils/dbConnection';
 import { createAccessToken, createRefreshToken } from '../../../utils/token';
+import { withMiddlewares } from '../../../utils/withMiddleware';
 
 interface NextApiRequestWithRegister extends NextApiRequest {
   body: {
@@ -66,4 +67,4 @@ const login: NextApiHandler = async (
   }
 };
 
-export default login;
+export default withMiddlewares(login);
