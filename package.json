@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cookie": "^0.4.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.10",
     "next": "^9.5.5",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
+    "@types/cookie": "^0.4.0",
     "@types/jsonwebtoken": "^8.5.0",
     "@types/mongoose": "^5.7.36",
     "typescript": "^4.0.3"

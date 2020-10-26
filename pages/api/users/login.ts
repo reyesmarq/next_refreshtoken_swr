@@ -1,4 +1,5 @@
 import { compare } from 'bcryptjs';
+import cookie from 'cookie';
 import { sign } from 'jsonwebtoken';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { User, UserModel } from '../../../models/User';
@@ -45,6 +46,18 @@ const login: NextApiHandler = async (
         });
       }
 
+      // Setting the cookie
+      res.setHeader(
+        'Cookie',
+        cookie.serialize(
+          'testing',
+          // @ts-ignore
+          sign({ userId: user.id }, 'anothersecret', { expiresIn: '7d' }),
+          {
+            httpOnly: true,
+          }
+        )
+      );
       // Login successfully
       // @ts-ignore
       let token = sign({ userId: user.id }, 'secret', { expiresIn: '15m' });
