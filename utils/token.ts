@@ -27,7 +27,8 @@ const createRefreshToken = (user: User) => {
 
 const sendRefreshToken = (res: NextApiResponse, token: string) => {
   res.setHeader(
-    'Cookie',
+    // 'Cookie',
+    'Set-Cookie',
     Cookie.serialize('jid', token, {
       httpOnly: true,
     })
