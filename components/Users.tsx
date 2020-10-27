@@ -13,7 +13,7 @@ const Users: React.FC<Props> = () => {
   return (
     <ul>
       {data?.data.map((user) => (
-        <li key={user.id}>{user.email}</li>
+        <li key={user._id}>{user.email}</li>
       ))}
     </ul>
   );

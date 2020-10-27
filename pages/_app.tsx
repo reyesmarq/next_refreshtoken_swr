@@ -1,6 +1,10 @@
 // import App from "next/app";
+import axios from 'axios';
 import type { AppProps /*, AppContext */ } from 'next/app';
 import Link from 'next/link';
+
+axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.withCredentials = true;
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
