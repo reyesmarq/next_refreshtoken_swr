@@ -2,9 +2,16 @@
 import axios from 'axios';
 import type { AppProps /*, AppContext */ } from 'next/app';
 import Link from 'next/link';
+import { getAccessToken } from '../utils/accessToken';
 
+let accessToken = getAccessToken();
 axios.defaults.baseURL = 'http://localhost:3000';
 axios.defaults.withCredentials = true;
+axios.defaults.headers.authorization = `bearer ${accessToken}`;
+
+// if (accessToken) {
+// }
+// axios.defaults.headers.common['Authorization']
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -18,6 +25,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         </div>
         <div>
           <Link href="/login">Login</Link>
+        </div>
+        <div>
+          <Link href="/UsersWithAuth">Users with auth</Link>
         </div>
       </nav>
       <br />

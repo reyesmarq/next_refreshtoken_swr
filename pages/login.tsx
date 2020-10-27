@@ -1,12 +1,14 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { getAccessToken, setAccessToken } from '../utils/accessToken';
 
 interface Props {}
 
 const login: React.FC<Props> = () => {
   let [email, setEmail] = useState('');
   let [password, setPassword] = useState('');
+  let router = useRouter();
 
   // TODO: needs to be moved to the utils folder
   const handleLogin = async ({ email, password }) => {
@@ -18,7 +20,9 @@ const login: React.FC<Props> = () => {
         })
         .then((res) => res.data);
 
-      console.log(data);
+      setAccessToken(data.data);
+
+      router.push('/');
     } catch (error) {
       console.log(error);
     }

@@ -12,11 +12,10 @@ const isAuth = (next) => (
   res: NextApiResponse
 ) => {
   let authorization = req.headers.authorization;
+  console.log('req.headers', req.headers);
 
-  console.log(authorization);
-
-  console.log('getting here 1');
   if (!authorization) {
+    console.log('not authenticated');
     return res.status(403).json({ msg: 'not authorize' });
   }
 
