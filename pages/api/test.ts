@@ -1,4 +1,5 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
+import { withMiddlewares } from "../../utils/withMiddleware";
 
 
 const test: NextApiHandler = async (
@@ -17,4 +18,4 @@ const test: NextApiHandler = async (
   }
 };
 
-export default test;
+export default withMiddlewares(test);
