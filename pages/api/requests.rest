@@ -25,6 +25,11 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Zjk3MWRhYWM3OTI0ZjU5MjBiYWJmZjQiLCJpYXQiOjE2MDM3NTU2NDksImV4cCI6MTYwMzc1NjU0OX0.lmWsdkAxE2YzpyM4xqu1vmHGzO4gy1JOVEtXbm_2ZKI
 
 ###
+# get Users with no auth
+GET http://localhost:3000/api/users/usersNoAuth
+Content-Type: application/json
+
+###
 # refresh token
 POST http://localhost:3000/api/users/refreshToken
 Content-Type: application/json

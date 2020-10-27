@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 interface Props {}
@@ -7,8 +8,10 @@ const register: React.FC<Props> = () => {
   let [email, setEmail] = useState('');
   let [password, setPassword] = useState('');
 
+  let router = useRouter()
+
   // TODO: needs to be moved to the utils folder
-  const login = async ({ email, password }) => {
+  const handleRegister = async ({ email, password }) => {
     try {
       let data = await axios
         .post('http://localhost:3000/api/users/register', {
@@ -18,6 +21,8 @@ const register: React.FC<Props> = () => {
         .then((res) => res.data);
 
       console.log(data);
+
+      router.push('/')
     } catch (error) {
       console.log(error);
     }
@@ -28,7 +33,7 @@ const register: React.FC<Props> = () => {
       onSubmit={(e) => {
         e.preventDefault();
         if (email && password) {
-          login({ email, password });
+          handleRegister({ email, password });
         }
 
         setEmail('');
