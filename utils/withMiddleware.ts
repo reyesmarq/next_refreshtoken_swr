@@ -1,3 +1,4 @@
+import cors from 'cors';
 import morgan from 'morgan';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -12,6 +13,8 @@ const withMiddlewares = (next) => async (
     // middlewares based upon current ENV)
     const middlewares = [
       process.env.NODE_ENV === 'development' && morgan('tiny'),
+      // * This is not needed since, I'm doing the request from the same origin
+      cors({ origin: 'http://localhost:3000', credentials: true }),
     ].filter(Boolean);
 
     // each middleware will then be wrapped within its own promise
