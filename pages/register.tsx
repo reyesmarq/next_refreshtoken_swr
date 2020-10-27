@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 
 interface Props {}
@@ -6,13 +7,32 @@ const register: React.FC<Props> = () => {
   let [email, setEmail] = useState('');
   let [password, setPassword] = useState('');
 
+  // TODO: needs to be moved to the utils folder
+  const login = async ({ email, password }) => {
+    try {
+      let data = await axios
+        .post('http://localhost:3000/api/users/register', {
+          email,
+          password,
+        })
+        .then((res) => res.data);
+
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        console.log('form submitted');
-        console.log('email value', email);
-        console.log('password value', password);
+        if (email && password) {
+          login({ email, password });
+        }
+
+        setEmail('');
+        setPassword('');
       }}
     >
       <div>
