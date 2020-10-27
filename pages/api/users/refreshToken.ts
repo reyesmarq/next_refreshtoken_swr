@@ -1,12 +1,12 @@
 import Cookie from 'cookie';
 import { verify } from 'jsonwebtoken';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-import { UserModel } from '../../models/User';
+import { UserModel } from '../../../models/User';
 import {
   createAccessToken,
   createRefreshToken,
   sendRefreshToken
-} from '../../utils/token';
+} from '../../../utils/token';
 
 const refreshToken: NextApiHandler = async (
   req: NextApiRequest,
@@ -46,6 +46,12 @@ const refreshToken: NextApiHandler = async (
         ok: false,
         accessToken: '',
       });
+    }
+
+    // IF user token version is not equals to what we have on the payload
+    // Token is not valid
+    if (user.tokenVersion !== payload.tokenVersion) {
+      return res.status(500).json({ ok: false, accessToken: '' });
     }
 
     // if the refresh is ok, refresh the refresh token

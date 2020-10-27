@@ -22,13 +22,27 @@ import { Document, model, models, Schema, SchemaTypeOpts } from 'mongoose';
 export interface User {
   email: string;
   password: string;
+  tokenVersion: number;
 }
 
 interface UserModel extends User, Document {}
 
 let userDefinition: Record<keyof User, any> = {
-  email: <SchemaTypeOpts<any>>{ type: String, required: true, unique: true },
-  password: <SchemaTypeOpts<any>>{ type: String, required: true },
+  email: <SchemaTypeOpts<any>>{
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: <SchemaTypeOpts<any>>{
+    type: String,
+    required: true,
+    // select: false // this is to avoid returning while query the model
+  },
+  tokenVersion: <SchemaTypeOpts<any>>{
+    type: Number,
+    required: true,
+    default: 0,
+  },
 };
 
 let userSchema: Schema<User> = new Schema(userDefinition);

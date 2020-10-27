@@ -60,7 +60,7 @@ const login: NextApiHandler = async (
     } catch (error) {
       return res.status(500).json({
         sucess: false,
-        error: 'Internal server error' + error.message,
+        error: 'Internal server error ' + error,
       });
     }
   }

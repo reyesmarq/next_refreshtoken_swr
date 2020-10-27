@@ -14,7 +14,7 @@ POST http://localhost:3000/api/users/login
 Content-Type: application/json
 
 {
-  "email": "reyes.marq@gmail.com",
+  "email": "reyes.marq@gmail.coms",
   "password": "reyes859"
 }
 
@@ -22,10 +22,19 @@ Content-Type: application/json
 # get Users with auth
 GET http://localhost:3000/api/users
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Zjk3MWRhYWM3OTI0ZjU5MjBiYWJmZjQiLCJpYXQiOjE2MDM3NTM4NzAsImV4cCI6MTYwMzc1NDc3MH0.VOY2reVwPthAtkRu6DNfnWA6Blv2_2QDLjUMQO3lnM4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Zjk3MWRhYWM3OTI0ZjU5MjBiYWJmZjQiLCJpYXQiOjE2MDM3NTU2NDksImV4cCI6MTYwMzc1NjU0OX0.lmWsdkAxE2YzpyM4xqu1vmHGzO4gy1JOVEtXbm_2ZKI
 
 ###
 # refresh token
-POST http://localhost:3000/api/refreshToken
+POST http://localhost:3000/api/users/refreshToken
 Content-Type: application/json
-Cookie: jid=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Zjk3MWRhYWM3OTI0ZjU5MjBiYWJmZjQiLCJpYXQiOjE2MDM3NTQxMDgsImV4cCI6MTYwNDM1ODkwOH0.OVUgpJtBAUg_PxcrHLwZcWngNEfVpJ-0UOSMQP9F9PQ;
+Cookie: jid=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjkzNzJjYzc0MmNlNWEzM2NlZWI0ZTQiLCJ0b2tlblZlcnNpb24iOjEsImlhdCI6MTYwMzc3MjA0NCwiZXhwIjoxNjA0Mzc2ODQ0fQ.bxQSK3Ke2JHekHTgyhYcbUOfjoxfaUX6qJPPryj0ilg;
+
+###
+# revoke refresh token
+POST http://localhost:3000/api/users/revokeRefreshTokenForUser
+Content-Type: application/json
+
+{
+  "userId": "5f9372cc742ce5a33ceeb4e4"
+}

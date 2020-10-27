@@ -15,10 +15,14 @@ const createAccessToken = (user: User) => {
 const createRefreshToken = (user: User) => {
   // TODO: refactor and remove ts-ignore
   // * this can be acomplished by refactoring the model. User us not currently contains id on it
-  // @ts-ignore
-  return sign({ userId: user.id }, process.env.REFRESH_TOKEN_SECRET, {
-    expiresIn: '7d',
-  });
+  return sign(
+    // @ts-ignore
+    { userId: user.id, tokenVersion: user.tokenVersion },
+    process.env.REFRESH_TOKEN_SECRET,
+    {
+      expiresIn: '7d',
+    }
+  );
 };
 
 const sendRefreshToken = (res: NextApiResponse, token: string) => {
