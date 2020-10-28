@@ -2,10 +2,15 @@ import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { UserModel } from '../../../models/User';
 import { dbConnect } from '../../../utils/dbConnection';
 import { isAuth } from '../../../utils/isAuth';
-import { withMiddlewares } from '../../../utils/withMiddleware';
 
-const index: NextApiHandler = async (
-  req: NextApiRequest,
+interface NextApiRequestWithPayload extends NextApiRequest {
+  payload: {
+    userId: string
+  }
+}
+
+const me: NextApiHandler = async (
+  req: NextApiRequestWithPayload,
   res: NextApiResponse
 ) => {
   if (req.method !== 'GET') {
@@ -16,13 +21,14 @@ const index: NextApiHandler = async (
   } else {
     try {
       await dbConnect();
-      console.log('getting here')
+      console.log('me')
+      console.log(req.payload)
 
-      let users = await UserModel.find();
+      let user = await UserModel.findById(req.payload.userId)
 
       res.status(200).json({
         success: true,
-        data: users,
+        data: user,
       });
     } catch (error) {
       return res.status(500).json({
@@ -33,4 +39,5 @@ const index: NextApiHandler = async (
   }
 };
 
-export default withMiddlewares(isAuth(index));
+// export default withMiddlewares(isAuth(me));
+export default isAuth(me)

@@ -20,8 +20,6 @@ const register: React.FC<Props> = () => {
         })
         .then((res) => res.data);
 
-      console.log(data);
-
       router.push('/')
     } catch (error) {
       console.log(error);

@@ -27,7 +27,6 @@ const revokeRefreshTokenForUser: NextApiHandler = async (
       },
     });
 
-    console.log('user', user);
     res.json({
       ok: true,
     });

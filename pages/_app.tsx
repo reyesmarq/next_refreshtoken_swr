@@ -1,19 +1,53 @@
 // import App from "next/app";
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import type { AppProps /*, AppContext */ } from 'next/app';
 import Link from 'next/link';
-import { getAccessToken } from '../utils/accessToken';
+import { useEffect, useState } from 'react';
+import { getAccessToken, setAccessToken } from '../utils/accessToken';
 
-let accessToken = getAccessToken();
+// axios.defaults.baseURL = 'http://localhost:3000';
+// axios.defaults.withCredentials = true;
+// axios.defaults.headers.authorization = `bearer ${accessToken}`;
 axios.defaults.baseURL = 'http://localhost:3000';
 axios.defaults.withCredentials = true;
-axios.defaults.headers.authorization = `bearer ${accessToken}`;
-
-// if (accessToken) {
-// }
-// axios.defaults.headers.common['Authorization']
 
 function MyApp({ Component, pageProps }: AppProps) {
+  let [loading, setLoading] = useState(true);
+  // let accessToken = getAccessToken();
+
+  useEffect(() => {
+    console.log('rendering');
+    console.log('accessToken', getAccessToken());
+
+    const refreshingToken = async () => {
+      let data = await axios
+        .post('/api/users/refreshToken')
+        .then((res) => res.data);
+
+      console.log('data', data);
+      setAccessToken(data.accessToken);
+      console.log('data.accessToken', getAccessToken());
+      // axios.defaults.headers.authorization = `bearer ${getAccessToken()}`;
+      axios.interceptors.request.use((config: AxiosRequestConfig) => {
+        config.headers['Authorization'] = `bearer ${getAccessToken()}`;
+
+        return config;
+      });
+      setLoading(false);
+    };
+
+    if (!getAccessToken()) {
+      refreshingToken();
+    }
+
+    // // console.log('after effect', axios.defaults.headers.authorization);
+  }, []);
+
+  if (loading) {
+    // we can return the loading animation
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <nav>

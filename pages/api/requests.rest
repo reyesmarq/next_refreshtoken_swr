@@ -22,7 +22,7 @@ Content-Type: application/json
 # get Users with auth
 GET http://localhost:3000/api/users
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Zjk3MWRhYWM3OTI0ZjU5MjBiYWJmZjQiLCJpYXQiOjE2MDM3NTU2NDksImV4cCI6MTYwMzc1NjU0OX0.lmWsdkAxE2YzpyM4xqu1vmHGzO4gy1JOVEtXbm_2ZKI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Zjk3MWRhYWM3OTI0ZjU5MjBiYWJmZjQiLCJpYXQiOjE2MDM4NDUwMTksImV4cCI6MTYwMzg0NTkxOX0.oODM3mkS6YQydtPrFBoKhF3Q43CuNAcZo_JBKWfzLKw
 
 ###
 # get Users with no auth
@@ -33,7 +33,7 @@ Content-Type: application/json
 # refresh token
 POST http://localhost:3000/api/users/refreshToken
 Content-Type: application/json
-Cookie: jid=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjkzNzJjYzc0MmNlNWEzM2NlZWI0ZTQiLCJ0b2tlblZlcnNpb24iOjEsImlhdCI6MTYwMzc3MjA0NCwiZXhwIjoxNjA0Mzc2ODQ0fQ.bxQSK3Ke2JHekHTgyhYcbUOfjoxfaUX6qJPPryj0ilg;
+Cookie: jid=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Zjk3MWRhYWM3OTI0ZjU5MjBiYWJmZjQiLCJ0b2tlblZlcnNpb24iOjAsImlhdCI6MTYwMzgzOTYxNSwiZXhwIjoxNjA0NDQ0NDE1fQ.MKh2G91F5X9M0Wp0hOmBoLUE-RbcNyiY-iFczhlRTuI;
 
 ###
 # revoke refresh token

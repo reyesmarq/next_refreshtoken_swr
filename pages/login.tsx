@@ -22,6 +22,7 @@ const login: React.FC<Props> = () => {
 
       setAccessToken(data.data);
 
+      console.log('token after login', getAccessToken())
       router.push('/');
     } catch (error) {
       console.log(error);

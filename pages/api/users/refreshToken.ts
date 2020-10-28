@@ -2,11 +2,13 @@ import Cookie from 'cookie';
 import { verify } from 'jsonwebtoken';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { UserModel } from '../../../models/User';
+import { dbConnect } from '../../../utils/dbConnection';
 import {
   createAccessToken,
   createRefreshToken,
   sendRefreshToken
 } from '../../../utils/token';
+import { withMiddlewares } from '../../../utils/withMiddleware';
 
 const refreshToken: NextApiHandler = async (
   req: NextApiRequest,
@@ -18,21 +20,24 @@ const refreshToken: NextApiHandler = async (
       msg: `Method ${req.method} Not allowed`,
     });
   } else {
-    let cookies = Cookie.parse(req.headers.cookie);
-    let token = cookies.jid;
-
-    if (!token) {
-      return res.status(500).json({
-        ok: false,
-        accessToken: '',
-      });
-    }
-
     let payload = null;
     try {
+      await dbConnect();
+      let cookies = Cookie.parse(req.headers.cookie);
+      let token = cookies.jid;
+
+      if (!token) {
+        console.log('There is no token');
+        return res.status(500).json({
+          ok: false,
+          accessToken: '',
+        });
+      }
+
       payload = verify(token, process.env.REFRESH_TOKEN_SECRET);
     } catch (err) {
-      return res.status(500).json({
+      console.log('Error in the server');
+      return res.status(200).json({
         ok: false,
         accessToken: '',
       });
@@ -42,6 +47,7 @@ const refreshToken: NextApiHandler = async (
     const user = await UserModel.findById(payload.userId);
 
     if (!user) {
+      console.log(`Weren't able to find the user`);
       return res.status(400).json({
         ok: false,
         accessToken: '',
@@ -57,6 +63,7 @@ const refreshToken: NextApiHandler = async (
     // if the refresh is ok, refresh the refresh token
     sendRefreshToken(res, createRefreshToken(user));
 
+    console.log(`Generate the refresh token`);
     res.status(200).json({
       ok: true,
       accessToken: createAccessToken(user),
@@ -64,4 +71,4 @@ const refreshToken: NextApiHandler = async (
   }
 };
 
-export default refreshToken;
+export default withMiddlewares(refreshToken);
