@@ -26,6 +26,8 @@ const refreshToken: NextApiHandler = async (
       let cookies = Cookie.parse(req.headers.cookie);
       let token = cookies.jid;
 
+      
+
       if (!token) {
         return res.status(500).json({
           ok: false,

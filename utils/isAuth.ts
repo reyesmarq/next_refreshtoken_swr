@@ -13,8 +13,10 @@ const isAuth = (next) => (
 ) => {
   let authorization = req.headers.authorization;
 
+  console.log('isAuth()')
+
   if (!authorization) {
-    return res.status(403).json({ msg: 'not authorize' });
+    return res.status(401).json({ msg: 'not authorize' });
   }
 
   try {
@@ -22,7 +24,7 @@ const isAuth = (next) => (
     let payload = verify(token, process.env.ACCESS_TOKEN_SECRET);
     req.payload = <{ userId: string }>payload;
   } catch (e) {
-    throw new Error('Not authenticated');
+    return res.status(401).json({ msg: 'not authorize' });
   }
 
   return next(req, res);

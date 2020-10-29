@@ -1,10 +1,13 @@
-import axios from 'axios';
 import useSWR from 'swr';
+import { getAccessToken } from './accessToken';
 
 const useUsersWithAuth = () => {
-  const { data, error, mutate } = useSWR('/api/users', (url: string) =>
-    axios(url).then((r) => r.data)
-  );
+  console.log('getAccessToken()', getAccessToken());
+  const { data, error, mutate } = useSWR([
+    '/api/users',
+    getAccessToken(),
+    'get',
+  ]);
 
   return {
     data: data,
