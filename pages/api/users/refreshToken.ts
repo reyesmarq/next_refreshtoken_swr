@@ -27,7 +27,6 @@ const refreshToken: NextApiHandler = async (
       let token = cookies.jid;
 
       if (!token) {
-        console.log('There is no token');
         return res.status(500).json({
           ok: false,
           accessToken: '',

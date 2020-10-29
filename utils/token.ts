@@ -8,7 +8,7 @@ const createAccessToken = (user: User) => {
   // * this can be acomplished by refactoring the model. User us not currently contains id on it
   // @ts-ignore
   return sign({ userId: user.id }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: '15m',
+    expiresIn: '10s',
   });
 };
 
